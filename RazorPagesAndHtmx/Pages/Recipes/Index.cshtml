@@ -1,0 +1,37 @@
+@page
+@model RazorPagesAndHtmx.Pages.Recipes.Index
+
+@{
+    ViewData["Title"] = "Recipes";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Recipes</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Ingredients</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recipe in Model.Recipes)
+            {
+                <tr>
+                    <td>@recipe.Name</td>
+                    <td>@recipe.Description</td>
+                    <td>
+                        <ul>
+                            @foreach (var ingredient in recipe.Ingredients)
+                            {
+                                <li>@ingredient.Name</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-page="Add" class="btn btn-primary">Add Recipe</a>
+</div>

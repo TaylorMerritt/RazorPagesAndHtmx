@@ -1,0 +1,38 @@
+@page
+@model RazorPagesAndHtmx.Pages.Recipes.Add
+
+@{
+    ViewData["Title"] = "Add Recipe";
+}
+
+<div class="container">
+    <h1 class="mb-4">Add Recipe</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label asp-for="NewRecipe.Name" class="form-label">Name</label>
+            <input asp-for="NewRecipe.Name" class="form-control" />
+            <span asp-validation-for="NewRecipe.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="NewRecipe.Description" class="form-label">Description</label>
+            <textarea asp-for="NewRecipe.Description" class="form-control"></textarea>
+            <span asp-validation-for="NewRecipe.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ingredients</label>
+            @for (var i = 0; i < Model.NewRecipe.Ingredients.Count; i++)
+            {
+            <div class="mb-2">
+                <div class="input-group">
+                    <input asp-for="NewRecipe.Ingredients[i].Name" class="form-control" />
+                    <button asp-page-handler="RemoveIngredient" asp-route-index="@i" class="btn btn-outline-secondary" type="submit">Remove</button>
+                </div>
+                <span asp-validation-for="NewRecipe.Ingredients[i].Name" class="text-danger d-block mt-1"></span>
+            </div>
+            }
+            <button asp-page-handler="AddIngredient" class="btn btn-secondary mt-2" type="submit">Add Ingredient</button>
+        </div>
+        <span asp-validation-for="NewRecipe.Ingredients" class="text-danger d-block mb-3"></span>
+        <button asp-page-handler="AddRecipe" class="btn btn-primary" type="submit">Add Recipe</button>
+    </form>
+</div>
